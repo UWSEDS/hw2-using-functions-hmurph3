@@ -9,3 +9,5 @@ Create a python module (a file with extension ‘.py’) with the following func
    1. The DataFrame contains only the columns that you specified in #1.
    1. The columns contain the correct data type
    1. There are at least 10 rows in the DataFrame.
+
+The data source I used for this is the City of Seattle Wage Data that can be found at https://data.seattle.gov/City-Business/City-of-Seattle-Wage-Data/2khk-5ukd.
