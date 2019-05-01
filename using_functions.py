@@ -8,6 +8,7 @@ dataframe matches the City of Seattle Wage Data:
 
 import pandas as pd
 
+
 # import City of Seattle Wage Data
 def create_data_frame():
     """
@@ -41,8 +42,7 @@ def test_create_dataframe(df):
 
     if (all([title in df.columns for title in column_titles]) and
             list(column_titles.columns) == list(df.columns) and
-            df.shape[0] > 10 and data.dtypes.Department == str and
+            df.shape[0] > 10 and df.dtypes.Department == str and
             df.dtypes.LastName == str and df.dtypes.FirstName == str and
             df.dtypes.JobTitle == str and df.dtypes.HourlyRate == float):
         return True
-
