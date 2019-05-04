@@ -4,45 +4,54 @@ dataframe matches the City of Seattle Wage Data:
 -- column names
 -- column data types
 -- and contains at least 10 rows in the test data frame
+
+The City of Seattle Wage Data has the following information
+There are 5 columns and 12.1K rows.
+The columns and their data types are listed below.
+Department: String
+Last Name: String
+First Name: String
+Job Title: String
+Hourly Rate: Float
 """
 
 import pandas as pd
 
-
 # import City of Seattle Wage Data
-def create_data_frame():
-    """
-    Creates a dataframe from the City of Seattle Wage Data
-    Returns the dataframe if there are more than three columns otherwise
-    it returns "Dataframe as less than three columns"
-    """
-    wages = pd.read_csv('https://data.seattle.gov/api/views/2khk-5ukd/'
-                        'rows.csv?accessType=DOWNLOAD', sep=',', header=0,
-                        names=("Department", "LastName", "FirstName",
-                               "JobTitle", "HourlyRate"),
-                        dtype={"Department": str, "LastName": str,
-                               "FirstName": str, "JobTitle": str,
-                               "HourlyRate": float})
-    if wages.shape[1] > 3:
-        return wages
-    else:
-        raise ValueError("Unexpected column titles")
+URL = 'https://data.seattle.gov/api/views/2khk-5ukd/rows.csv?accessType=DOWNLOAD'
+DATA = pd.read_csv(URL, sep=',', header=0)
 
+# get the column names and column datatypes
+COL_NAMES = sorted(DATA.columns)
+COL_TYPES = list(DATA[COL_NAMES].dtypes)
 
-def test_create_dataframe(df):
+def test_create_dataframe(dataframe):
     """
     Inputs: a pandas dataframe df
-    Ouputs: returns true only if the following are all true
-    - df contains only the columns in wages
-    - the columns contain the correct data type
-    - there are at least 10 rowns in df
-    """
-    column_titles = ["Department", "LastName", "FirstName", "JobTitle",
-                     "HourlyRate"]
+    Ouputs: returns a Boolean.
 
-    if (all([title in df.columns for title in column_titles]) and
-            list(column_titles.columns) == list(df.columns) and
-            df.shape[0] > 10 and df.dtypes.Department == str and
-            df.dtypes.LastName == str and df.dtypes.FirstName == str and
-            df.dtypes.JobTitle == str and df.dtypes.HourlyRate == float):
-        return True
+    The function checks if the dataframe column names and data types
+    match the City of Seattle Wage Data and there are at least 10 rows
+    and at least 3 columns
+    """
+
+    test_passed = True
+    col_count = dataframe.shape[1]
+    row_count = dataframe.shape[0]
+    column_names = sorted(dataframe.columns)
+    column_types = list(dataframe[column_names].dtypes)
+
+    # Check that there are at least 3 columns
+    if col_count < 3:
+        test_passed = False
+    # Check that there are only the columns defined in COL_NAMES
+    elif column_names != COL_NAMES:
+        test_passed = False
+    # Check that there the datatypes match COL_TYPES
+    elif column_types != COL_TYPES:
+        test_passed = False
+    # Check that there are more than 10 Columns
+    elif row_count < 10:
+        test_passed = False
+
+    return test_passed
